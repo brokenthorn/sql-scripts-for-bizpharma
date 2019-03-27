@@ -2,8 +2,8 @@ CREATE TABLE employee
 (
   cnp        CHAR(13)    NOT NULL
     CONSTRAINT employee_pk PRIMARY KEY,
-  first_name VARCHAR(50) NOT NULL,
-  last_name  VARCHAR(50) NOT NULL
+  first_name VARCHAR(64) NOT NULL,
+  last_name  VARCHAR(64) NOT NULL
 );
 
 COMMENT ON TABLE employee IS 'Tabela cu angajatii companiei';
