@@ -1,26 +1,35 @@
-
 DECLARE
     @startDate DATETIME = '2019-11-01 00:00:00';
 
-SELECT L.Nume                               AS Locatie,
-       Utlz.Nume                            AS Utilizator,
-       BonDefinitie.Nume                    AS TipBon,
-       Bon.NumarCard                        AS NumarCard,
-       -- CXO.NumarCard AS NumarCardInregistratInOperatie,
-       IIF(PersoanaCardPrincipal.IdPersoana IS NULL, 'Secundar',
-           'Principal')                     AS TipCard,
-       ISNULL(PersoanaCardPrincipal.Nume + ' ' +
-              PersoanaCardPrincipal.Prenume,
-              PersoanaCardSecundar.Nume + ' ' +
-              PersoanaCardSecundar.Prenume) AS PosesorCard,
+SELECT DISTINCT L.Nume                               AS Locatie,
+                Utlz.Nume                            AS Utilizator,
+                BonDefinitie.Nume                    AS TipBon,
+                Bon.NumarCard                        AS NumarCard,
+                Bon.Numar                            AS NumarBon,
+                A.Nume                               AS Articol,
+                cast(BDet.ProcDisc AS MONEY)         AS ProcDisc,
+                cast(BDet.ValoareDisc AS MONEY)      AS ValDisc,
+                cast(BDet.ValoareAmanunt AS MONEY)   AS ValAm,
+                -- CXO.NumarCard AS NumarCardInregistratInOperatie,
+                IIF(PersoanaCardPrincipal.IdPersoana IS NULL, 'Secundar',
+                    'Principal')                     AS TipCard,
+                ISNULL(PersoanaCardPrincipal.Nume + ' ' +
+                       PersoanaCardPrincipal.Prenume,
+                       PersoanaCardSecundar.Nume + ' ' +
+                       PersoanaCardSecundar.Prenume) AS PosesorCard,
 
-       CXO.IdOperatie                       AS IdOperatie,
-       CXO.SensOperatie                     AS SensOperatie
+                CXO.IdOperatie                       AS IdOperatie,
+                CXO.SensOperatie                     AS SensOperatie
 FROM CardXOperatie CXO
          JOIN Operatie O ON O.IdOperatie = CXO.IdOperatie AND
                             O.IdLocatie = CXO.IdLocatie
          JOIN Document D
               ON O.IdElement = D.IdDocument AND O.IdLocatie = D.IdLocatie
+         JOIN DocumentDetaliu DD
+              ON D.IdDocument = DD.IdDocument AND D.IdLocatie = DD.IdLocatie
+         JOIN BonDetaliu BDet ON DD.IdLocatie = BDet.IdLocatie AND
+                                 DD.IdDocumentDetaliu = BDet.IdDocumentDetaliu
+         JOIN Articol A ON DD.IdArticol = A.IdArticol
          JOIN Bon ON Bon.IdDocument = D.IdDocument AND
                      Bon.IdLocatie = D.IdLocatie
          JOIN Utilizator Utlz ON O.IdUtilizator = Utlz.IdUtilizator
