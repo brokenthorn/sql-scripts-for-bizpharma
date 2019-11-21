@@ -4,6 +4,7 @@ SELECT DISTINCT L.Nume                       AS Farmacie,
                 D.SerieDocument,
                 D.NumarDocument,
                 A.Nume,
+                DD.CodCIMStoc,
                 DD.CantI,
                 DD.CantF,
                 DD.CantNrUT
@@ -25,3 +26,4 @@ WHERE DD.CodCIMStoc IN
        'W54046001')
   AND F.DataDoc BETWEEN '2017-06-01' AND '2018-03-31 23:59:59.999'
   AND D.IdTipDocument = 88
+  AND P.IdPartener <> 8676 -- NovoLine Pharm S.R.L.
