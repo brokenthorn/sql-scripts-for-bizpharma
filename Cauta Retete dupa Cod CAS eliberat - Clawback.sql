@@ -1,0 +1,27 @@
+SELECT L.Nume                      AS Farmacie,
+       Cas.Nume                    AS Casa,
+       A.Nume                      AS Medicament,
+       CRD.CodCas,
+       CR.SerieReteta,
+       CR.NumarReteta,
+       cast(CR.DataReteta AS DATE) AS DataReteta,
+       CRD.CantitateUT,
+       CRD.CantNrBuc
+FROM CasRetetaDetaliu CRD
+         JOIN CasReteta CR
+              ON CRD.IdLocatie = CR.IdLocatie
+                  AND CRD.IdCasReteta = CR.IdCasReteta
+         JOIN Articol A ON CRD.IdArticol = A.IdArticol
+         JOIN Cas ON CR.IdCas = Cas.IdCas
+         JOIN Locatie L ON L.IdLocatie = CR.IdLocatie
+WHERE CR.DataReteta BETWEEN '2018-01-01' AND '2018-03-31 23:59:59.999'
+  AND CRD.CodCas IN ('W03703002',
+                     'W07268001',
+                     'W08254001',
+                     'W08932002',
+                     'W08973001',
+                     'W41731002',
+                     'W41732002',
+                     'W53034001',
+                     'W54046001')
+  AND Cas.Nume NOT LIKE 'AOPSNAJ'
