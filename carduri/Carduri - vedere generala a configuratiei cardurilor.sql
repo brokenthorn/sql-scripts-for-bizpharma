@@ -1,6 +1,6 @@
-IF OBJECT_ID('tempdb..#ConfiguratieCarduri') IS NOT NULL DROP TABLE #ConfiguratieCarduri;
+IF OBJECT_ID('tempdb..##ConfiguratieCarduri') IS NOT NULL DROP TABLE ##ConfiguratieCarduri;
 
-CREATE TABLE #ConfiguratieCarduri
+CREATE TABLE ##ConfiguratieCarduri
 (
     NumeSerie             VARCHAR(100) NOT NULL,
     ProcentDiscount       INT            DEFAULT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE #ConfiguratieCarduri
 );
 
 
-INSERT INTO #ConfiguratieCarduri (NumeSerie,
+INSERT INTO ##ConfiguratieCarduri (NumeSerie,
                                   ProcentDiscount,
                                   TipBon,
                                   TipReteta,
@@ -61,7 +61,7 @@ FROM CarduriXBonDefinitieXCategorieArticolXTipArticol Conf
          LEFT JOIN DictionarDetaliu TipArticol ON Conf.IdTipArticol = TipArticol.IdDictionarDetaliu;
 
 
-INSERT INTO #ConfiguratieCarduri (NumeSerie,
+INSERT INTO ##ConfiguratieCarduri (NumeSerie,
                                   ProcentDiscount,
                                   TipBon,
                                   TipReteta,
@@ -94,7 +94,7 @@ FROM CarduriXBonDefinitieXCategorieArticolXTipArticolXLocatieXOrar Conf
          LEFT JOIN Orar O ON Conf.IdOrar = O.IdOrar;
 
 
-INSERT INTO #ConfiguratieCarduri (NumeSerie,
+INSERT INTO ##ConfiguratieCarduri (NumeSerie,
                                   ProcentDiscount,
                                   TipBon,
                                   TipReteta,
@@ -124,7 +124,7 @@ FROM CarduriXValoarePuncteXBonDefinitieXCategorieArticolXTipArticol Conf
          LEFT JOIN DictionarDetaliu TipArticol ON Conf.IdTipArticol = TipArticol.IdDictionarDetaliu;
 
 
-INSERT INTO #ConfiguratieCarduri (NumeSerie,
+INSERT INTO ##ConfiguratieCarduri (NumeSerie,
                                   ProcentDiscount,
                                   TipBon,
                                   TipReteta,
@@ -157,7 +157,7 @@ FROM CarduriXValoarePuncteXBonDefinitieXCategorieArticolXTipArticolXLocatieXOrar
          LEFT JOIN Orar O ON Conf.IdOrar = O.IdOrar;
 
 SELECT *
-FROM #ConfiguratieCarduri
+FROM ##ConfiguratieCarduri
 ORDER BY NumeSerie,
          ProcentDiscount,
          TipBon,
