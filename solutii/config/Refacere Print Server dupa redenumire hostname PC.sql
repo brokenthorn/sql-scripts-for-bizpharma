@@ -1,3 +1,5 @@
+Use BizPharma;
+
 SELECT *
 FROM CasaMarcatXPrintServer;
 
@@ -18,8 +20,8 @@ FROM ImprimantaStatieXPrintServer;
 
 BEGIN TRANSACTION
     DECLARE
-        @DenumireVechePrintServer VARCHAR(50) = '',
-        @DenumireNouaPrintServer  VARCHAR(50) = '';
+        @DenumireVechePrintServer VARCHAR(50) = 'DESKTOP-C702QEG',
+        @DenumireNouaPrintServer  VARCHAR(50) = 'ISACCEI-4';
 
     UPDATE CasaMarcatXPrintServer
     SET PrintServer = @DenumireNouaPrintServer
