@@ -6,8 +6,8 @@ select L.Nume,
        R.*
 from CasReteta R
        join Locatie L on R.IdLocatie = L.IdLocatie
-where NumarReteta = '2741'
-  and SerieReteta = 'NTLGCF';
+where NumarReteta = '6070'
+  and SerieReteta LIKE 'NTLIAL';
 GO
 
 -- Cauta eliberarea:

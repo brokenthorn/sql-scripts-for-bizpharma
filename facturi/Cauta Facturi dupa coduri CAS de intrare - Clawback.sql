@@ -15,15 +15,7 @@ FROM DocumentDetaliu DD
          JOIN Partener P ON P.IdPartener = F.IdPartener
          JOIN Articol A ON DD.IdArticol = A.IdArticol
 WHERE DD.CodCIMStoc IN
-      ('W03703002',
-       'W07268001',
-       'W08254001',
-       'W08932002',
-       'W08973001',
-       'W41731002',
-       'W41732002',
-       'W53034001',
-       'W54046001')
-  AND F.DataDoc BETWEEN '2017-06-01' AND '2018-03-31 23:59:59.999'
+      ('W57681001')
+  AND F.DataDoc BETWEEN '2017-01-01' AND '2017-12-31 23:59:59.999'
   AND D.IdTipDocument = 88
   AND P.IdPartener <> 8676 -- NovoLine Pharm S.R.L.
