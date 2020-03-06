@@ -1,29 +1,31 @@
-use BizPharmaHO;
+USE BizPharmaHO;
 GO
 
 -- Cauta reteta:
-select L.Nume,
+SELECT L.Nume,
        R.*
-from CasReteta R
-       join Locatie L on R.IdLocatie = L.IdLocatie
-where NumarReteta = '6070'
-  and SerieReteta LIKE 'NTLIAL';
+FROM CasReteta R
+         JOIN Locatie L ON R.IdLocatie = L.IdLocatie
+WHERE
+--       NumarReteta = '6070'
+--   AND SerieReteta LIKE 'NTLIAL'
+R.CID = '40110884864662357058';
 GO
 
 -- Cauta eliberarea:
-declare
-  @IdCasReteta int,
-  @IdLocatie   int;
+DECLARE
+    @IdCasReteta INT,
+    @IdLocatie INT;
 
-select top 1 @IdLocatie = R.IdLocatie,
+SELECT TOP 1 @IdLocatie = R.IdLocatie,
              @IdCasReteta = R.IdCasReteta
-from CasReteta R
-where NumarReteta = '2741'
-  and SerieReteta = 'NTLGCF';
+FROM CasReteta R
+WHERE NumarReteta = '2741'
+  AND SerieReteta = 'NTLGCF';
 
-select L.Nume, E.*
-from CasEliberare E
-       join Locatie L on E.IdLocatie = L.IdLocatie
-where E.IdCasReteta = @IdCasReteta
-  and E.IdLocatie = @IdLocatie;
+SELECT L.Nume, E.*
+FROM CasEliberare E
+         JOIN Locatie L ON E.IdLocatie = L.IdLocatie
+WHERE E.IdCasReteta = @IdCasReteta
+  AND E.IdLocatie = @IdLocatie;
 GO
