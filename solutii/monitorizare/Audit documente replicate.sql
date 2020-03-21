@@ -130,3 +130,45 @@ WHILE @@fetch_status = 0
 
 CLOSE LSCursor;
 DEALLOCATE LSCursor;
+
+
+-- Arata Diferentele:
+SELECT DataSetId,
+       NumeLocatie,
+       IdLocatie,
+       IdDocument,
+       DataOperare,
+       DataUltimaModificare,
+       EsteAnulat,
+       DataAnulareDocument,
+       DataDocument,
+       SerieDocument,
+       NumarDocument,
+       Numar,
+       NumeTipDocument,
+       NumarLiniiDocument,
+       ValoareDocument,
+       CotaTVA,
+       ValoareDocumentPerCotaTVA
+FROM AuditReplicari
+WHERE TipBazaDeDate = 'Filiala'
+    EXCEPT
+SELECT DataSetId,
+       NumeLocatie,
+       IdLocatie,
+       IdDocument,
+       DataOperare,
+       DataUltimaModificare,
+       EsteAnulat,
+       DataAnulareDocument,
+       DataDocument,
+       SerieDocument,
+       NumarDocument,
+       Numar,
+       NumeTipDocument,
+       NumarLiniiDocument,
+       ValoareDocument,
+       CotaTVA,
+       ValoareDocumentPerCotaTVA
+FROM AuditReplicari
+WHERE TipBazaDeDate = 'HeadOffice'
