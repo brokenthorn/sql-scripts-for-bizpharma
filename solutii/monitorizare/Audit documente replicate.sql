@@ -34,7 +34,8 @@ DECLARE @StartDate VARCHAR(50);
 DECLARE @EndDate VARCHAR(50);
 
 SET @DataSetId = CAST(@DataSetId_Date AS VARCHAR(50));
-SET @StartDate = CAST(DATEADD(DAY, -2, @DataSetId_Date) AS VARCHAR(50))
+-- SET @StartDate = CAST(DATEADD(DAY, -2, @DataSetId_Date) AS VARCHAR(50))
+SET @StartDate = '2020-01-01'
 SET @EndDate = CAST(DATEADD(DAY, -1, @DataSetId_Date) AS VARCHAR(50))
 
 -- select @StartDate, @EndDate
@@ -51,12 +52,14 @@ DECLARE LSCursor CURSOR FAST_FORWARD
              JOIN Locatie L ON LD.IdLocatie = L.IdLocatie
     WHERE L.EsteActiv = 1
       AND LEN(LD.NumeBazaDeDate) > 3
-	  AND L.IdLocatie not in (77, 48); -- VIVO, mamaia
+      AND L.IdLocatie NOT IN (77, 48); -- VIVO, mamaia
 
 OPEN LSCursor;
 FETCH NEXT FROM LSCursor INTO @LS;
 WHILE @@fetch_status = 0
     BEGIN
+        DECLARE @logmsg VARCHAR(100) = 'Preiau datele de la ' + @LS;
+        RAISERROR (@logmsg, 0, 1) WITH NOWAIT;
         BEGIN TRY
             SET @SQL =
                         'INSERT INTO BizPharmaHO.dbo.AuditReplicari (DataSetId, TipBazaDeDate, NumeLocatie, IdLocatie, IdDocument, DataOperare, DataUltimaModificare, EsteAnulat, DataAnulareDocument, DataDocument, SerieDocument, NumarDocument, Numar, NumeTipDocument, NumarLiniiDocument, ValoareDocument, CotaTVA, ValoareDocumentPerCotaTVA) ' +
