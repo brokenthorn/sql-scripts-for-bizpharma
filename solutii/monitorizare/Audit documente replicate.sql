@@ -27,18 +27,16 @@ CREATE TABLE AuditReplicari
     CONSTRAINT PK_AuditReplicari PRIMARY KEY NONCLUSTERED (DataSetId, TipBazaDeDate, IdLocatie, IdDocument, CotaTVA)
 );
 
-
-DECLARE @DataSetId_Date DATE = GETDATE();
+DECLARE @DataSetId_Date DATETIME = GETDATE();
 DECLARE @DataSetId VARCHAR(50);
 DECLARE @StartDate VARCHAR(50);
 DECLARE @EndDate VARCHAR(50);
 
-SET @DataSetId = CAST(@DataSetId_Date AS VARCHAR(50));
--- SET @StartDate = CAST(DATEADD(DAY, -2, @DataSetId_Date) AS VARCHAR(50))
-SET @StartDate = '2020-01-01'
-SET @EndDate = CAST(DATEADD(DAY, -1, @DataSetId_Date) AS VARCHAR(50))
+SET @DataSetId = CONVERT(VARCHAR(50), @DataSetId_Date, 126);
+SET @StartDate = CAST(DATEADD(DAY, -8, CAST(@DataSetId_Date AS DATE)) AS VARCHAR(50));
+SET @EndDate = CAST(DATEADD(DAY, -1, CAST(@DataSetId_Date AS DATE)) AS VARCHAR(50));
 
--- select @StartDate, @EndDate
+SELECT @StartDate, @EndDate, @DataSetId_Date, @DataSetId
 
 DECLARE @SQL VARCHAR(MAX);
 DECLARE @LS VARCHAR(MAX);
