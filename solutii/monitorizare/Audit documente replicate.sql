@@ -36,7 +36,7 @@ SET @DataSetId = CONVERT(VARCHAR(50), @DataSetId_Date, 126);
 SET @StartDate = CAST(DATEADD(DAY, -8, CAST(@DataSetId_Date AS DATE)) AS VARCHAR(50));
 SET @EndDate = CAST(DATEADD(DAY, -1, CAST(@DataSetId_Date AS DATE)) AS VARCHAR(50));
 
-SELECT @StartDate, @EndDate, @DataSetId_Date, @DataSetId
+-- SELECT @StartDate, @EndDate, @DataSetId_Date, @DataSetId
 
 DECLARE @SQL VARCHAR(MAX);
 DECLARE @LS VARCHAR(MAX);
