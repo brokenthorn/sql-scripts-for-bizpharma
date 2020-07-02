@@ -1,3 +1,7 @@
+-- În tabela OSMRXDocument există câmpul ProdusOSMRCod2D unde este stocat Codul 2D în format Base64.
+-- Există parametrul „OSMR - verificare obligatorie produse in bon” care blochează
+-- salvarea bonului dacă verificarea produselor nu s-a încheiat cu succes.
+
 SELECT d.MomentOperareDocument,
        tip.Cod AS TipTranzactie,
        tip.Nume,
