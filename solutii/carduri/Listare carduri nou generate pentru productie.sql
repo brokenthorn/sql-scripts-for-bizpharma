@@ -32,7 +32,8 @@ WHERE Valabil = '9998-12-31 00:00:00.000'
 
 -- Cautare numar maxim intr-o serie
 
-SELECT MIN(NumarCard)                                                  AS Minim,
+SELECT LEFT(NumarCard, 1) AS Inceput,
+       MIN(NumarCard)                                                  AS Minim,
        MAX(NumarCard)                                                  AS Maxim,
        COUNT(*)                                                        AS Randuri,
        CAST(MAX(NumarCard) AS BIGINT) - cast(MIN(NumarCard) AS BIGINT) AS MaxMinusMin,
@@ -44,4 +45,5 @@ WHERE ISNUMERIC(NumarCard) = 1
 --   AND NumarCard NOT LIKE '5%'
 --   AND NumeSerie = 'Sustinem o copilarie sanatoasa'
 --   AND NumarCard LIKE '2%'
-GROUP BY NumeSerie
+GROUP BY LEFT(NumarCard, 1), NumeSerie
+ORDER BY LEFT(NumarCard, 1), MIN(NumarCard)
