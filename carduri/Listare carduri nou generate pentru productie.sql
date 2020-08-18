@@ -16,13 +16,17 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT NumarCard,
        NumeSerie,
        Valabil
--- SELECT COUNT(*)
+--SELECT COUNT(*)
 FROM Carduri
-WHERE NumeSerie LIKE 'Sustinem o copilarie sanatoasa'
+WHERE NumeSerie LIKE 'Mini-Farm Fidelizare'
+  AND NumarCard like '1%'
   AND ISNUMERIC(NumarCard) = 1
-  AND NumarCard >= '200000106036'
+  AND CAST(NumarCard as BIGINT) >= 1000000871012
+  AND cast(NumarCard as bigint)  <= 1000000911008
 --   AND NumarCard NOT LIKE '9%'
 ORDER BY NumarCard ASC
+
+select * from Carduri where NumarCard like '100000091100%'
 
 -- Cautare dupa data de valabilitate distincta pentru seria generata:
 
